@@ -23,6 +23,24 @@ impl Visitor {
             age,
         }
     }
+
+    fn greet_visitor(&self) {
+        match &self.action {
+            VisitorActions::Accept => println!("Welcome to the club, {}", self.name),
+            VisitorActions::AcceptWithNote { note } => {
+                println!("Welcome to the club, {}", self.name);
+                println!("{}", note);
+
+                if self.age < 21 {
+                    println!("Don't serve alcohol to {}", self.name);
+                }
+            }
+            VisitorActions::Probation => {
+                println!("{}, is now a probationary member", self.name)
+            }
+            VisitorActions::Refuse => println!("Don't allow {} in", self.name),
+        }
+    }
 }
 
 fn main() {
@@ -45,21 +63,7 @@ fn main() {
         let known_visitor = visitor_list.iter().find(|visitor| visitor.name == name);
 
         match known_visitor {
-            Some(visitor) => match &visitor.action {
-                VisitorActions::Accept => println!("Welcome to the club, {}", visitor.name),
-                VisitorActions::AcceptWithNote { note } => {
-                    println!("Welcome to the club, {}", visitor.name);
-                    println!("{}", note);
-
-                    if visitor.age < 21 {
-                        println!("Don't serve alcohol to {}", visitor.name);
-                    }
-                }
-                VisitorActions::Probation => {
-                    println!("{}, is now a probationary member", visitor.name)
-                }
-                VisitorActions::Refuse => println!("Don't allow {} in", visitor.name),
-            },
+            Some(visitor) => visitor.greet_visitor(),
             None => {
                 if name.is_empty() {
                     break;
