@@ -5,7 +5,7 @@ fn main() {
 
     let your_name = what_is_your_name();
 
-    println!("Hello, {}", your_name)
+    println!("Hello, {:?}", your_name)
 }
 
 fn what_is_your_name() -> String {
@@ -14,5 +14,6 @@ fn what_is_your_name() -> String {
     stdin()
         .read_line(&mut your_name)
         .expect("failed to read line");
-    your_name
+
+    your_name.trim().to_lowercase()
 }
