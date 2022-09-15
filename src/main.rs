@@ -1,11 +1,24 @@
 use std::io::stdin;
 
 fn main() {
+    let visitor_list = ["bert", "steve", "fred"];
+    let mut allow_them_in = false;
+
     println!("Hello, what's your name?");
 
-    let your_name = what_is_your_name();
+    let name = what_is_your_name();
 
-    println!("Hello, {:?}", your_name)
+    for visitor in &visitor_list {
+        if visitor == &name {
+            allow_them_in = true;
+        }
+    }
+
+    if allow_them_in {
+        println!("Hello, {:?}", name)
+    } else {
+        println!("You're not allowed")
+    }
 }
 
 fn what_is_your_name() -> String {
